@@ -1,6 +1,6 @@
 function calculateTime() {
   let a = 0;
-  for (let i = 0; i < 100000000000; i++) {
+  for (let i = 0; i < 10000; i++) {
     a = a + i;
   }
   return a;
@@ -40,7 +40,6 @@ console.log(afterTimeFunc - beforeTimeFunc);
 //   const seconds = now.getUTCSeconds().toString().padStart(2, "0");
 
 //   // Clear the console and log the current time
-//   console.clear();
 //   console.log(`${minutes}:${seconds}`);
 // }
 
@@ -103,3 +102,83 @@ console.log(sumFunc(2, 3, cube));
 (function () {
   console.log("Hello World");
 })();
+
+// ----------------------------
+
+console.log("A1");
+
+// setInterval(() => {
+//   console.log("Hello world");
+// }, 1000);
+
+console.log("A2");
+
+console.log("A3");
+
+const fs = require("fs");
+
+fs.readFile("something.txt", "utf-8", function (err, data) {
+  console.log(data);
+});
+
+function findSum(n) {
+  let ans = 0;
+  for (let i = 0; i < n; i++) {
+    ans += i;
+  }
+  return ans;
+}
+
+function findSumTill100() {
+  return findSum(100);
+}
+
+setTimeout(findSumTill100, 1000);
+console.log("hello world");
+
+// my own asynchronous function
+function kiratsReadFile() {
+  return new Promise(function (resolve) {
+    fs.readFile("something.txt", "utf-8", function (err, data) {
+      resolve(data);
+    });
+  });
+}
+
+// callback function to call
+function onDone(data) {
+  console.log(data);
+}
+
+kiratsReadFile().then(onDone);
+
+const ab = new Promise(function (smth) {
+  smth();
+});
+
+function anythng() {
+  console.log(ab);
+}
+
+ab.then(anythng);
+
+function resolver(time) {
+  return new Promise(function resolved() {
+    setTimeout(function () {
+      console.log("resolved ");
+    }, time * 1000);
+  });
+}
+
+resolver(3).then();
+
+function resolved(result) {
+  console.log("Resolved");
+}
+
+function rejected(result) {
+  console.error(result);
+}
+
+Promise.reject(new Error("fail")).then(resolved, rejected);
+// Expected output: Error: fail
